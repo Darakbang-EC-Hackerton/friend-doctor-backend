@@ -35,10 +35,15 @@ public class EmotionController {
 	}
 
 
-	@GetMapping
-	public ResponseEntity<SuccessResponse<TodayEmotionResp>> getTodayEmotion(@RequestBody TodayEmotionReq request) {
-		TodayEmotionResp todayEmotionResp = emotionService.getTodayEmotion(request);
+	@Operation(summary = "오늘의 감정 조회")
+	@GetMapping("/today")
+	public ResponseEntity<SuccessResponse<TodayEmotionResp>> getTodayEmotion(
+		@Schema(description = "회원 ID", example = "1")
+		@RequestParam Long memberId
+	) {
+		TodayEmotionResp todayEmotionResp = emotionService.getTodayEmotion(memberId);
 		return ResponseEntity.ok(SuccessResponse.success(todayEmotionResp));
+	}
 	
 	@Operation(summary = "월간 감정 기록 조회")
 	@GetMapping("/monthly")
