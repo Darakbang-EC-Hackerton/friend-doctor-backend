@@ -42,4 +42,5 @@ public class Emotion extends BaseEntity {
 	public void updateEmotion(EmotionType type) {
 		this.type = type;
 	}
+
 }
