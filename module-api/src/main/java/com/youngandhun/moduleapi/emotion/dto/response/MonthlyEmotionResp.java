@@ -5,6 +5,7 @@ import java.util.List;
 import com.youngandhun.modulecore.emotion.domain.Emotion;
 import com.youngandhun.modulecore.emotion.domain.EmotionType;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,14 +16,18 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class MonthlyEmotionResp {
 
+	@Schema(description = "년도", example = "2024")
 	private int year;
+	@Schema(description = "월", example = "11")
 	private int month;
 	private List<EmotionInfo> emotions;
 
 	@Getter
 	public static class EmotionInfo {
 
+		@Schema(description = "날짜", example = "1")
 		private int day;
+		@Schema(description = "감정 종류", example = "매우 행복")
 		private EmotionType type;
 
 		public EmotionInfo(int day, EmotionType type) {
