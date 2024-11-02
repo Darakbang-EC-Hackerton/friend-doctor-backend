@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.youngandhun.modulecommon.dto.ErrorResponse;
 import com.youngandhun.modulecore.emotion.exception.EmotionException;
 import com.youngandhun.modulecore.member.exception.MemberException;
+import com.youngandhun.modulecore.poem.exception.PoemException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,12 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(EmotionException.class)
 	public ResponseEntity<ErrorResponse<Void>> handleEmotionException(EmotionException e) {
+		log.warn(e.getMessage(), e);
+		return ResponseEntity.status(e.getStatus()).body(ErrorResponse.failure(e.getCode(), e.getMessage()));
+	}
+
+	@ExceptionHandler(PoemException.class)
+	public ResponseEntity<ErrorResponse<Void>> handleMemberException(PoemException e) {
 		log.warn(e.getMessage(), e);
 		return ResponseEntity.status(e.getStatus()).body(ErrorResponse.failure(e.getCode(), e.getMessage()));
 	}
