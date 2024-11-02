@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.youngandhun.modulecommon.dto.ErrorResponse;
+import com.youngandhun.modulecore.emotion.exception.EmotionException;
 import com.youngandhun.modulecore.member.exception.MemberException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,12 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(MemberException.class)
 	public ResponseEntity<ErrorResponse<Void>> handleMemberException(MemberException e) {
+		log.warn(e.getMessage(), e);
+		return ResponseEntity.status(e.getStatus()).body(ErrorResponse.failure(e.getCode(), e.getMessage()));
+	}
+
+	@ExceptionHandler(EmotionException.class)
+	public ResponseEntity<ErrorResponse<Void>> handleEmotionException(EmotionException e) {
 		log.warn(e.getMessage(), e);
 		return ResponseEntity.status(e.getStatus()).body(ErrorResponse.failure(e.getCode(), e.getMessage()));
 	}
