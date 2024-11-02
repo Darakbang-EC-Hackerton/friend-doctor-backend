@@ -1,6 +1,8 @@
 package com.youngandhun.moduleapi.emotion.dto.response;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.youngandhun.modulecore.emotion.domain.Emotion;
 import com.youngandhun.modulecore.emotion.domain.EmotionType;
@@ -21,6 +23,8 @@ public class MonthlyEmotionResp {
 	@Schema(description = "월", example = "11")
 	private int month;
 	private List<EmotionInfo> emotions;
+	@Schema(description = "감정 종류별 수")
+	private Map<EmotionType, Long> emotionCount;
 
 	@Getter
 	public static class EmotionInfo {
@@ -47,6 +51,8 @@ public class MonthlyEmotionResp {
 		this.emotions = emotions.stream()
 			.map(EmotionInfo::from)
 			.toList();
+		this.emotionCount = emotions.stream()
+			.collect(Collectors.groupingBy(Emotion::getType, Collectors.counting()));
 	}
 
 }
