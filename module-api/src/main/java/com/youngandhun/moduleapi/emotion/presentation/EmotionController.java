@@ -1,7 +1,6 @@
 package com.youngandhun.moduleapi.emotion.presentation;
 
 import com.youngandhun.moduleapi.auth.domain.CustomUserDetails;
-import com.youngandhun.moduleapi.emotion.dto.response.TodayEmotionResp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.youngandhun.moduleapi.emotion.application.EmotionService;
 import com.youngandhun.moduleapi.emotion.dto.response.MonthlyEmotionResp;
 import com.youngandhun.moduleapi.emotion.dto.request.TodayEmotionReq;
+import com.youngandhun.moduleapi.emotion.dto.response.TodayEmotionResp;
 import com.youngandhun.modulecommon.config.SwaggerConfig;
 import com.youngandhun.modulecommon.dto.SuccessResponse;
 
