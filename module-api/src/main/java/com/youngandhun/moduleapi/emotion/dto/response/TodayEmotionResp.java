@@ -1,4 +1,4 @@
-package com.youngandhun.moduleapi.emotion.dto;
+package com.youngandhun.moduleapi.emotion.dto.response;
 
 import com.youngandhun.modulecore.emotion.domain.EmotionType;
 
