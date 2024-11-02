@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/friend_docker
+    url: jdbc:mysql://localhost:3307/friend_doctor
     username: COMPOSE_USER
     password: COMPOSE_PASSWORD
 
