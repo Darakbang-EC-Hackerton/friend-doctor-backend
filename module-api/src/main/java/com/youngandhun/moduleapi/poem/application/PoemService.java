@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +21,9 @@ public class PoemService {
     private final PoemRepository poemRepository;
 
     @Transactional(readOnly = true)
-    public PoemInfoResp findByDate(){
+    public PoemInfoResp findRandomPoemByDate(){
         LocalDate now = LocalDate.now();
-        Poem poem = poemRepository.findByDate(now)
+        Poem poem = poemRepository.findRandomPoemByDate(now)
             .orElseThrow(() -> new PoemException(PoemErrorCode.POEM_NOT_FOUND_FOR_DATE));
 
         log.info(poem.toString());
