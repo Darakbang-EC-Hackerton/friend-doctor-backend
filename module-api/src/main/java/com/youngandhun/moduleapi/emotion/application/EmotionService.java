@@ -1,13 +1,15 @@
 package com.youngandhun.moduleapi.emotion.application;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.youngandhun.moduleapi.emotion.dto.TodayEmotionResp;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.youngandhun.moduleapi.emotion.dto.TodayEmotionReq;
+import com.youngandhun.moduleapi.emotion.dto.request.MonthlyEmotionReq;
+import com.youngandhun.moduleapi.emotion.dto.response.MonthlyEmotionResp;
+import com.youngandhun.moduleapi.emotion.dto.request.TodayEmotionReq;
 import com.youngandhun.modulecore.emotion.domain.Emotion;
 import com.youngandhun.modulecore.emotion.repository.EmotionRepository;
 import com.youngandhun.modulecore.member.domain.Member;
@@ -47,6 +49,7 @@ public class EmotionService {
 		);
 	}
 
+
 	public TodayEmotionResp getTodayEmotion(TodayEmotionReq request) {
 
 		Member member = memberRepository.findById(request.getMemberId())
@@ -64,5 +67,19 @@ public class EmotionService {
 		                    .type(null)
 		                    .build());
 
+
+	@Transactional(readOnly = true)
+	public MonthlyEmotionResp getMonthlyEmotion(MonthlyEmotionReq request) {
+		Member member = memberRepository.findById(request.getMemberId())
+			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+		List<Emotion> emotions = emotionRepository.findAllByMemberAndYearAndMonth(member,
+			request.getYear(), request.getMonth());
+
+		return MonthlyEmotionResp.builder()
+			.year(request.getYear())
+			.month(request.getMonth())
+			.emotions(emotions)
+			.build();
 	}
 }
