@@ -1,0 +1,17 @@
+dependencies {
+    implementation project(':module-core')
+    implementation project(':module-common')
+}
+
+springBoot {
+    mainClass.set('com.youngandhun.moduleapi.ModuleApiApplication')
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = 'module-api.jar'
+}
+
+jar {
+    enabled = false
+}

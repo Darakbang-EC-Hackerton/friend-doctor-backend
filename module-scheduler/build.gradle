@@ -1,0 +1,17 @@
+dependencies {
+    implementation project(':module-core')
+    implementation project(':module-common')
+}
+
+springBoot {
+    mainClass.set('com.youngandhun.modulescheduler.ModuleSchedulerApplication')
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = 'module-scheduler.jar'
+}
+
+jar {
+    enabled = false
+}

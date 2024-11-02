@@ -1,0 +1,6 @@
+rootProject.name = 'frienddoctor'
+include 'module-api'
+include 'module-core'
+include 'module-common'
+include 'module-scheduler'
+
