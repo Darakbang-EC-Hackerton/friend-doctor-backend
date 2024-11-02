@@ -48,23 +48,24 @@ public class EmotionService {
 		);
 	}
 
+	@Transactional(readOnly = true)
+	public TodayEmotionResp getTodayEmotion(Long memberId) {
 
-	public TodayEmotionResp getTodayEmotion(TodayEmotionReq request) {
-
-		Member member = memberRepository.findById(request.getMemberId())
-				.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
 		LocalDate today = LocalDate.now();
 
-		    return emotionRepository.findByMemberAndCreatedAt(member, today)
-		            .map(emotion -> TodayEmotionResp.builder()
-		                    .username(member.getUsername())
-		                    .type(emotion.getType())
-		                    .build())
-		            .orElseGet(() -> TodayEmotionResp.builder()
-		                    .username(member.getUsername())
-		                    .type(null)
-		                    .build());
+		return emotionRepository.findByMemberAndCreatedAt(member, today)
+			.map(emotion -> TodayEmotionResp.builder()
+				.username(member.getUsername())
+				.type(emotion.getType())
+				.build())
+			.orElseGet(() -> TodayEmotionResp.builder()
+				.username(member.getUsername())
+				.type(null)
+				.build());
+	}
 
 
 	@Transactional(readOnly = true)
