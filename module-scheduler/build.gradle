@@ -1,6 +1,8 @@
 dependencies {
     implementation project(':module-core')
     implementation project(':module-common')
+
+    implementation 'net.nurigo:sdk:4.3.0' // coolsms
 }
 
 springBoot {
