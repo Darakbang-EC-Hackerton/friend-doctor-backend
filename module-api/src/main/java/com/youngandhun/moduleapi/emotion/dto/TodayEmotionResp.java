@@ -1,6 +1,8 @@
 package com.youngandhun.moduleapi.emotion.dto;
 
 import com.youngandhun.modulecore.emotion.domain.EmotionType;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TodayEmotionResp {
 
+    @Schema(description = "감정 종류", example = "매우 행복")
     private EmotionType type;
+    @Schema(description = "유저명", example = "홍길동")
     private String username;
 
     @Builder

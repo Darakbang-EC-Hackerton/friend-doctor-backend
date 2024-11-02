@@ -7,7 +7,6 @@ import com.youngandhun.moduleapi.emotion.dto.TodayEmotionResp;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.youngandhun.moduleapi.emotion.dto.request.MonthlyEmotionReq;
 import com.youngandhun.moduleapi.emotion.dto.response.MonthlyEmotionResp;
 import com.youngandhun.moduleapi.emotion.dto.request.TodayEmotionReq;
 import com.youngandhun.modulecore.emotion.domain.Emotion;
@@ -49,36 +48,37 @@ public class EmotionService {
 		);
 	}
 
+	@Transactional(readOnly = true)
+	public TodayEmotionResp getTodayEmotion(Long memberId) {
 
-	public TodayEmotionResp getTodayEmotion(TodayEmotionReq request) {
-
-		Member member = memberRepository.findById(request.getMemberId())
-				.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
 		LocalDate today = LocalDate.now();
 
-		    return emotionRepository.findByMemberAndCreatedAt(member, today)
-		            .map(emotion -> TodayEmotionResp.builder()
-		                    .username(member.getUsername())
-		                    .type(emotion.getType())
-		                    .build())
-		            .orElseGet(() -> TodayEmotionResp.builder()
-		                    .username(member.getUsername())
-		                    .type(null)
-		                    .build());
+		return emotionRepository.findByMemberAndCreatedAt(member, today)
+			.map(emotion -> TodayEmotionResp.builder()
+				.username(member.getUsername())
+				.type(emotion.getType())
+				.build())
+			.orElseGet(() -> TodayEmotionResp.builder()
+				.username(member.getUsername())
+				.type(null)
+				.build());
+	}
 
 
 	@Transactional(readOnly = true)
-	public MonthlyEmotionResp getMonthlyEmotion(MonthlyEmotionReq request) {
-		Member member = memberRepository.findById(request.getMemberId())
+	public MonthlyEmotionResp getMonthlyEmotion(int year, int month, Long memberId) {
+		Member member = memberRepository.findById(memberId)
 			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
 		List<Emotion> emotions = emotionRepository.findAllByMemberAndYearAndMonth(member,
-			request.getYear(), request.getMonth());
+			year, month);
 
 		return MonthlyEmotionResp.builder()
-			.year(request.getYear())
-			.month(request.getMonth())
+			.year(year)
+			.month(month)
 			.emotions(emotions)
 			.build();
 	}
