@@ -10,9 +10,12 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
@@ -33,4 +36,12 @@ public class Member extends BaseEntity {
 
 	@Column(nullable = false)
 	private String mobileNumber;
+
+	@Builder
+	public Member(String email, String username, String password, String mobileNumber) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.mobileNumber = mobileNumber;
+	}
 }
