@@ -4,6 +4,8 @@ import com.youngandhun.modulecommon.domain.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,6 +24,9 @@ public class Member extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long memberId;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	@Email
 	@Column(nullable = false)
@@ -42,6 +47,7 @@ public class Member extends BaseEntity {
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.role = Role.USER;
 		this.mobileNumber = mobileNumber;
 	}
 }

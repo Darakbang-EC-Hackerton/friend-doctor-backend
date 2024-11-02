@@ -1,4 +1,4 @@
-package com.youngandhun.moduleapi.member.dto;
+package com.youngandhun.moduleapi.auth.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

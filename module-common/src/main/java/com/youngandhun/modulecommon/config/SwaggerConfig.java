@@ -22,9 +22,18 @@ import lombok.extern.slf4j.Slf4j;
 public class SwaggerConfig {
 
 
+    public static final String JWT_SECURITY_SCHEME = "JWT Token";
+
     @Bean
     public OpenAPI openAPI() {
+        SecurityScheme apiKey = new SecurityScheme()
+            .type(SecurityScheme.Type.HTTP)
+            .in(SecurityScheme.In.HEADER)
+            .name("Authorization")
+            .scheme("bearer")
+            .bearerFormat("JWT");
+
         return new OpenAPI()
-                .components(new Components());
+            .components(new Components().addSecuritySchemes(JWT_SECURITY_SCHEME, apiKey));
     }
 }

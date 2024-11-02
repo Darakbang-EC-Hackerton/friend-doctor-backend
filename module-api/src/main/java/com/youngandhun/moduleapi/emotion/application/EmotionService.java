@@ -26,9 +26,9 @@ public class EmotionService {
 	private final EmotionRepository emotionRepository;
 	private final MemberRepository memberRepository;
 
-	public void recordTodayEmotion(TodayEmotionReq request) {
+	public void recordTodayEmotion(TodayEmotionReq request, Long memberId) {
 
-		Member member = memberRepository.findById(request.getMemberId())
+		Member member = memberRepository.findById(memberId)
 			.orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
 
 		LocalDate today = LocalDate.now();
