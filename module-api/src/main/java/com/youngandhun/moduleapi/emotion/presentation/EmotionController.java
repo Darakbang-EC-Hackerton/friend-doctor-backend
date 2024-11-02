@@ -1,5 +1,6 @@
 package com.youngandhun.moduleapi.emotion.presentation;
 
+import com.youngandhun.moduleapi.emotion.dto.TodayEmotionResp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,12 @@ public class EmotionController {
 		return ResponseEntity.ok(SuccessResponse.success("오늘의 감정 기록에 성공하였습니다."));
 	}
 
+
+	@GetMapping
+	public ResponseEntity<SuccessResponse<TodayEmotionResp>> getTodayEmotion(@RequestBody TodayEmotionReq request) {
+		TodayEmotionResp todayEmotionResp = emotionService.getTodayEmotion(request);
+		return ResponseEntity.ok(SuccessResponse.success(todayEmotionResp));
+	
 	@Operation(summary = "월간 감정 기록 조회")
 	@GetMapping("/monthly")
 	public ResponseEntity<SuccessResponse<MonthlyEmotionResp>> getMonthlyEmotion(
